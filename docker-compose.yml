@@ -17,12 +17,12 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3000"
     env_file:
       - .env
     environment:
       <<: [*postgres-config, *redis-config, *minio-config]
-      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_URL: http://localhost:3001
       NEXTAUTH_SECRET: ${AUTH_SECRET}
       # Required for Docker setup
       NEXTAUTH_URL_INTERNAL: http://app:3000
@@ -78,3 +78,7 @@ services:
 volumes:
   postgres_data:
   minio_data:
+
+networks:
+  app-network:
+    name: open-deep-research-network-${ENVIRONMENT:-prod}
