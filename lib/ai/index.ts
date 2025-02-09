@@ -12,6 +12,7 @@ type ReasoningModel = typeof VALID_REASONING_MODELS[number];
 const VALID_REASONING_MODELS = [
   'o1', 'o1-mini', 'o3-mini',
   'deepseek-ai/DeepSeek-R1',
+  'deepseek-reasoner',
   'gpt-4o'
 ] as const;
 
@@ -66,6 +67,8 @@ export const customModel = (apiIdentifier: string, forReasoning: boolean = false
   // Select provider based on model
   const model = modelId === 'deepseek-ai/DeepSeek-R1'
     ? togetherai(modelId)
+    : modelId === 'deepseek-reasoner'
+    ? deepseek(modelId)
     : openai(modelId);
 
   return wrapLanguageModel({
